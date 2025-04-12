@@ -1,0 +1,27 @@
+entrypoint = "main.py"
+modules = ["python-3.8:v2-20230907-3d66d15"]
+
+hidden = [".pythonlibs"]
+run = "python manage.py runserver 0.0.0.0:3000"
+
+[nix]
+channel = "stable-23_05"
+
+[env]
+LANG = "en_US.UTF-8"
+
+[workflows]
+runButton = "Django Server"
+
+[[workflows.workflow]]
+name = "Django Server"
+author = 6548165
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python manage.py runserver 0.0.0.0:3000"
+
+[[ports]]
+localPort = 3000
+externalPort = 80

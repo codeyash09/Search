@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+
+  {% if user.is_authenticated %}
+
+    <div class="login-form">
+      <h1>Hello {{user.username}}</h1>
+      <a id="a" href="{% url 'logout' %}">Log Out</a>
+      <a id="a" href="{% url 'search' %}">Search</a>
+    </div>
+    
+  {% else %}
+
+    <div class="login-form">
+      <p>You are not logged in but you can still search you have an account then you may log in. </p>
+      <a id="a" href="{% url 'login' %}">Log In</a>
+      <a id="a" href="{% url 'search' %}">Search</a>
+    </div>
+    
+    
+
+  {% endif %}
+{% endblock content %}

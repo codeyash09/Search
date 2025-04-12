@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Add a new Result {% endblock title %}
+
+{% block content %}
+
+  <div class="login-form">
+    <h2>New Result</h2>
+  <form method="POST" class="result-form">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="thebutton" type="submit">Add</button>
+  </form>
+  </div>
+  
+{% endblock content %}

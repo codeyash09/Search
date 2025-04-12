@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+
+{% block title %} Search {% endblock title %}
+
+{% block content %}
+
+  <div class="content">
+    {% if user.is_authenticated %}
+    <div class="userinfo" style="position: absolute; right: 15px;">
+      <a id="a" href="{% url 'logout' %}">Log Out</a>
+      <h3>{{user.username}}</h3>
+    </div>
+    
+    
+    <div class="search" id="search">
+
+        <div class="icon">
+          <div class="bigS">
+            <h1>S</h1>
+          </div>
+
+          <div class="slider" id="slider">
+            <p>earch</p>
+          </div>
+        </div>
+        <input class="inputbox" type="search" placeholder="Search..." id="inputbox">
+        <button id="button" onclick="search()" class="button"><i class="fas fa-search"></i></button>
+        <p id="thep" >Sorry but we do not have this result right now.</p>
+        <a id="thea" href="{% url 'result_new' %}">Add a Result</a>
+        
+    </div>
+    
+
+
+      {% for SearchResult in object_list %}
+        
+      <div class="{{SearchResult.keyword1}} {{SearchResult.keyword2}} {{SearchResult.keyword3}} {{SearchResult.keyword4}} {{SearchResult.keyword5}} {{SearchResult.keyword6}} {{SearchResult.keyword7}} {{SearchResult.keyword8}} {{SearchResult.keyword9}}" id="result">
+                          
+
+                          <a id="a" href="{{SearchResult.link}}">
+                            <h1>{{SearchResult.title}}</h1>
+                            <a id="a" href="{{SearchResult.link}}">{{SearchResult.link}}</a>
+                            <p>{{SearchResult.short_description}}</p>
+                            
+                          </a>
+                        
+
+
+          
+        
+      </div>
+
+
+
+
+
+
+      
+
+
+
+
+      {% endfor %}
+
+
+      <script>
+      var p = document.getElementById("thep");
+      var a = document.getElementById("thea");
+
+      p.style.display = "none"
+      a.style.display = "none"
+      document.getElementById("inputbox").addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+          search()
+      }
+      });
+
+
+      function search(){
+
+         var icon = document.querySelector(".icon")
+
+        icon.innerHTML = "<h1>Search</h1>"
+        icon.style.top = "-100px"
+        icon.style.textAlign = "center;"
+        
+        var searchdiv = document.getElementById("search");
+
+        p.style.display = "none"
+        a.style.display = "none"
+        searchdiv.style.top = "-45%"
+        searchdiv.style.left = "0"
+
+        searchdiv.style.padding = "25px"
+        
+        var z = document.querySelectorAll("#result");
+        var w;
+        for (w = 0; w < z.length; w++) {
+          z[w].style.display = "none";
+        }
+
+        var searchbox = document.getElementById("inputbox").value;
+        while(searchbox.indexOf(' ') > -1){
+          searchbox = searchbox.replace(' ', '')
+        }
+        
+
+        var x = document.getElementsByClassName(searchbox);
+        var i;
+
+        
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "block";
+        }
+
+        
+
+        if(x.length <= 0){
+          p.style.display = "block"
+          a.style.display = "block"
+        }
+        
+        
+
+      }
+
+      
+
+      
+
+
+    </script>
+
+    {% else %}
+    <div class="userinfo" style="position: absolute; right: 15px;">
+      <a id="a" href="{% url 'login' %}">Log In</a>
+    </div>
+    
+      <div class="search" id="search">
+        <div class="icon">
+          <div class="bigS">
+            <h1>S</h1>
+          </div>
+
+          <div class="slider" id="slider">
+            <p>earch</p>
+          </div>
+        </div>
+
+        
+        <input class="inputbox" type="search" placeholder="Search..." id="inputbox">
+        <button id="button" onclick="search()" class="button"><i class="fas fa-search"></i></button>
+
+        <p id="thep" >Sorry but we do not have this result right now.</p>
+      </div>
+      
+      {% for SearchResult in object_list %}
+
+      <div class="{{SearchResult.keyword1}} {{SearchResult.keyword2}} {{SearchResult.keyword3}} {{SearchResult.keyword4}} {{SearchResult.keyword5}} {{SearchResult.keyword6}} {{SearchResult.keyword7}} {{SearchResult.keyword8}} {{SearchResult.keyword9}}" id="result">
+
+                          
+        
+                          <a id="a" href="{{SearchResult.link}}">
+                            <h1>{{SearchResult.title}}</h1>
+                            <a id="a" href="{{SearchResult.link}}">{{SearchResult.link}}</a>
+                            <p>{{SearchResult.short_description}}</p>
+                            
+                          </a>
+                        
+
+
+          
+        
+      </div>
+
+
+
+      <script>
+      var p = document.getElementById("thep");
+
+      
+      
+      p.style.display = "none"
+      
+      document.getElementById("inputbox").addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+          search()
+      }
+      });
+
+      
+
+      
+
+      function search(){
+        var icon = document.querySelector(".icon")
+
+        icon.innerHTML = "<h1>Search</h1>"
+        icon.style.top = "-100px"
+        icon.style.textAlign = "center;"
+        
+        var searchdiv = document.getElementById("search");
+
+        p.style.display = "none"
+
+
+        
+        searchdiv.style.top = "-45%"
+        searchdiv.style.left = "0vw"
+
+        
+
+        searchdiv.style.padding = "25px"
+        
+        var z = document.querySelectorAll("#result");
+        var w;
+        for (w = 0; w < z.length; w++) {
+          z[w].style.display = "none";
+        }
+
+        var searchbox = document.getElementById("inputbox").value;
+        while(searchbox.indexOf(' ') > -1){
+          searchbox = searchbox.replace(' ', '')
+        }
+        
+
+        var x = document.getElementsByClassName(searchbox);
+        var i;
+
+        
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "block";
+        }
+
+        
+
+        if(x.length <= 0){
+          p.style.display = "block"
+          
+        }
+        
+        
+
+      }
+
+
+
+      
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+      {% endfor %}
+
+    {% endif %}
+
+    <button id="darkbuttonforleft" class="thebutton" onclick="back()">
+      Back to the Search Bar
+    </button>
+
+    <script>
+      function back(){
+        document.getElementById("inputbox").focus();
+      }
+    </script>
+
+  </div>
+{% endblock content %}
